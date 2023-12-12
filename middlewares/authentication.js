@@ -24,7 +24,8 @@ async function authentication(req, res, next) {
     }
     req.user = {
       id: user.id,
-      role: user.role
+      role: user.role,
+      status : user.status
     }
     next()
   } catch (error) {
