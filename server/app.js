@@ -1,7 +1,9 @@
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 const { default: axios } = require('axios')
 const express = require('express')
 const app = express()
-const port = 3000
 const { User, SavedPassword, Order } = require('./models')
 const { Op } = require("sequelize")
 const { comparePassword, hashPassword } = require('./bcrypt')
@@ -20,9 +22,6 @@ const middlewaresLimit = limit({
   period: 60 * 1000, // per minute (60 seconds)
 })
 
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
