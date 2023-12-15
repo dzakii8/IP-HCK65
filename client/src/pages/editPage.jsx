@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 import { BiSolidHide } from "react-icons/bi";
 import { BiSolidShow } from "react-icons/bi";
@@ -8,6 +8,21 @@ export default function EditPage() {
   const [data, setData] = useState([])
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const fetchdata = async (e) => {
+    try {
+      await axios.get(`http://localhost:3000/savePassword/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.access_token}`
+        }
+      })
+      setFormPass({
+        password: ""
+      })
+      dispatch(getDataPassword())
+    } catch (error) {
+      console.log(error);
+    }
+  }
   const handleOnEdit = async (e) => {
     e.preventDefault()
     try {
@@ -24,6 +39,17 @@ export default function EditPage() {
       console.log(error);
     }
   }
+  const fetchData = ()=>{
+    try {
+      const {data} = axios.get(`http://localhost:3000/savedPassword${id}`)
+    } catch (error) {
+      
+    }
+  }
+
+  useEffect(()=>{
+
+  })
   return (
     <><Navbar />
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 flex flex-col">

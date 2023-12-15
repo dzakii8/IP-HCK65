@@ -1,8 +1,10 @@
 import { Link, useNavigate } from "react-router-dom"
 import axios from 'axios'
 import { useEffect, useMemo, useState } from "react"
+import { useDispatch } from "react-redux"
 
 export default function Navbar() {
+  const dispatch = useDispatch()
   const nav = useNavigate()
   const handleLogout = () => {
     localStorage.removeItem("access_token")
@@ -57,6 +59,7 @@ const handleOnUpgrade = async () => {
                     }
                 }
             )
+            dispatch(getDataPassword())
         }
     })
 }

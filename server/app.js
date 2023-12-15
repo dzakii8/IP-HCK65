@@ -161,7 +161,7 @@ app.use(authentication)
 app.get('/', limitApi, (req, res) => {
   res.send('Hello World!')
 })
-app.get('/generatePassword/:length', async (req, res) => {
+app.get('/generatePassword/:length',limitApi, async (req, res) => {
   try {
     //rqr length from params
     const { length } = req.params
@@ -232,13 +232,11 @@ app.get('/savePassword/:id', async (req, res) => {
 app.delete('/savePassword/:id', async (req, res) => {
   try {
     //rqr name, password, user id, req,body
-    console.log(req.params);
     const result = await SavedPassword.destroy({
       where : {
         id : req.params.id
       }
     })
-    // console.log(result);
 
     res
       .status(200)
@@ -252,21 +250,9 @@ app.patch('/savePassword', async (req, res) => {
     const { id } = req.params
     const data = SavedPassword.findByPk(id)
     //rqr name, password, user id, req,body
-    let { name, password } = req.body
-
-    if (name && password) {
-      const result = await data.update({
-        name, password
-      }, {
-        where: id
-      })
-    } else if (name) {
-      const result = await data.update({
-        name
-      }, {
-        where: id
-      })
-    } else if (password) {
+    let { password } = req.body
+    
+     if (password) {
       const result = await data.update({
         password
       }, {
