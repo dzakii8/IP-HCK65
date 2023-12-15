@@ -3,7 +3,6 @@ const { User } = require('../models')
 
 async function authentication(req, res, next) {
   try {
-    console.log('hehehe');
     let token = req.headers.authorization
     // console.log(token);
     if (!token) {
@@ -18,7 +17,9 @@ async function authentication(req, res, next) {
       throw { name: 'InvalidToken' }
     }
     // console.log(payload.id);
+    console.log('hehehe');
     let user = await User.findByPk(payload.id)
+    // console.log(user);
     if (!user) {
       throw { name: 'InvalidToken' }
     }
@@ -27,6 +28,7 @@ async function authentication(req, res, next) {
       role: user.role,
       status : user.status
     }
+    // console.log(req.user);
     next()
   } catch (error) {
     // console.log(error);

@@ -16,3 +16,9 @@
 //   }
 // }
 // test()
+
+
+//FITUR
+//1. nodemailer, router kirim token.
+//2. cron,di server
+//3. midtrans
